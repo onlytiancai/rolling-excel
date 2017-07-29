@@ -1,7 +1,19 @@
 define(function (require) {
-    var messages = require('./message');
+    var WorkBooks = require('./workbook');
+    var books = new WorkBooks();
+    books.fetch();
 
-    var print = require('print');
+    books.on("add", function(book) {
+      console.log(book.toJSON());
+    });
 
-    print(messages.getHello());
+    var newbook = books.create({
+      title: 555  
+    }, {wait: true});
+
+    newbook.set({
+      id: 666,
+      title: 6666
+    })
+    newbook.save();
 });
