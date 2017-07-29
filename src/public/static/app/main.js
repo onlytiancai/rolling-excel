@@ -1,19 +1,26 @@
 define(function (require) {
     var WorkBooks = require('./workbook');
     var books = new WorkBooks();
-    books.fetch();
+    books.fetch({
+      success: function(){
 
-    books.on("add", function(book) {
-      console.log(book.toJSON());
-    });
+        books.once("add", function(newbook) {
+          newbook.fetch();
 
-    var newbook = books.create({
-      title: 555  
-    }, {wait: true});
+          newbook.save(
+            {'title': '6666'},
+            {
+            success: function() {
+              console.log('save ok');
+              newbook.destroy();  
+            }  
+          });
 
-    newbook.set({
-      id: 666,
-      title: 6666
-    })
-    newbook.save();
+        });
+
+      books.create({
+        title: 555
+      }, {wait: true});
+    }  
+  });
 });

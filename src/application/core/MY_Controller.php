@@ -1,6 +1,11 @@
 <?php
 class MY_Controller extends CI_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->session->set_userdata('user_id', 1); //TODO: for test
+    }
     /**
      * 获取菜单数据
      * */
@@ -37,5 +42,11 @@ class MY_Controller extends CI_Controller {
     {
         $this->output ->set_content_type('application/json');
         $this->output->set_output(json_encode($data)); 
+    }
+
+    protected function request_json()
+    {
+       $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+       return json_decode($stream_clean, true); 
     }
 }

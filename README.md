@@ -1,5 +1,8 @@
 ### TODO
-- index.php放public目录下
+- done: index.php放public目录下
+- todo: json input校验
+- todo: db存储字段检测
+- todo: 统一异常捕获
 
 ## 安装步骤
 
