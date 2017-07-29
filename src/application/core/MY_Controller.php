@@ -32,4 +32,10 @@ class MY_Controller extends CI_Controller {
 
         return $ret;
     } 
+
+    protected function put_json($data)
+    {
+        $this->output ->set_content_type('application/json');
+        $this->output->set_output(json_encode($data)); 
+    }
 }

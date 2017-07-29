@@ -1,7 +1,8 @@
 requirejs.config({
     baseUrl: '/static/lib',
     paths: {
-        app: '../app'
+        app: '../app',
+        jquery: 'jquery-1.11.0'
     }
 });
 
