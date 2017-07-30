@@ -35,7 +35,14 @@ define(function (require) {
     },
 
     render: function() {
+      this.$el.empty();
       this.$el.html(Mustache.render(detailTpl, this.model.toJSON()));
+
+      var hotdata = this.model.get('content'); 
+      if (hotdata) {
+        hotdata = JSON.parse(hotdata);
+        this.hot = hotutils.get_hot(this.$('.main-table')[0], hotdata)
+      }
     },
 
     events: {
@@ -54,9 +61,8 @@ define(function (require) {
       xlsutils.read_file(e.target.files[0], function(err, workbook) {
         if (err) return that.trigger('error', err);
         that.workbook = workbook;
-        that.hotdata = xlsutils.get_hotdata(workbook);
-        that.$('.main-table').empty();
-        that.hot = hotutils.get_hot(that.$('.main-table')[0], that.hotdata)
+        var hotdata = xlsutils.get_hotdata(workbook);
+        that.model.set('content', JSON.stringify(hotdata));
       });
     },
 
@@ -66,7 +72,9 @@ define(function (require) {
     },
 
     save: function() {
-          
+      var workbook  = xlsutils.get_workbook(this.hot);
+      var hotdata = xlsutils.get_hotdata(workbook);
+      this.model.save('content', JSON.stringify(hotdata));
     },
 
   });

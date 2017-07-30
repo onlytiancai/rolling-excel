@@ -74,6 +74,10 @@ define(function (require) {
             var txt = worksheet[z].w;
             txt = txt.replace(/&#10;/g,'\n'); 
             table[row][col] = txt;  
+        } 
+        else if (worksheet[z].v) {
+            var txt = worksheet[z].v;
+            table[row][col] = txt;  
         } else {
             table[row][col] = '';
         }
@@ -159,7 +163,7 @@ define(function (require) {
       this.Sheets = {};
   }
 
-  function save_to(hot) {
+  function get_workbook(hot) {
     var ranges = hot.mergeCells.mergedCellInfoCollection.map(function(x) {
         return {s: {r: x.row, c: x.col}, e: {r: x.row + x.rowspan - 1, c: x.col + x.colspan -1}};
     });
@@ -179,6 +183,12 @@ define(function (require) {
     wb.SheetNames.push(ws_name);
     wb.Sheets[ws_name] = ws;
 
+    return wb;
+
+  }  
+
+  function save_to(hot) {
+    var wb = get_workbook(hot);
     var wbout = XLSX.write(wb, {bookType:'xlsx', bookSST:false, type: 'binary'});
 
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "test.xlsx") 
@@ -188,5 +198,6 @@ define(function (require) {
     read_file: read_file,
     get_hotdata: get_hotdata,
     save_to: save_to,
+    get_workbook: get_workbook,
   };
 });
