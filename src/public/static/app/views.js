@@ -36,7 +36,6 @@ define(function (require) {
 
     render: function() {
       this.$el.html(Mustache.render(detailTpl, this.model.toJSON()));
-      this.$('.main-table').html(JSON.stringify(this.model.toJSON()));
     },
 
     events: {
@@ -56,12 +55,14 @@ define(function (require) {
         if (err) return that.trigger('error', err);
         that.workbook = workbook;
         that.hotdata = xlsutils.get_hotdata(workbook);
+        that.$('.main-table').empty();
         that.hot = hotutils.get_hot(that.$('.main-table')[0], that.hotdata)
       });
     },
 
     download: function() {
-              
+      if (!this.hot) return;
+      xlsutils.save_to(this.hot);
     },
 
     save: function() {
