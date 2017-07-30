@@ -13,7 +13,7 @@ define(function (require) {
   var ListView = Backbone.View.extend({
 
     initialize: function(options) {
-      this.el = options.el;
+      options.container.html(this.el);
       this.books = new models.WorkBooks();
       this.listenTo(this.books, "reset", this.render);
       this.books.fetch({reset: true});
@@ -28,7 +28,7 @@ define(function (require) {
   var DetailView = Backbone.View.extend({
 
     initialize: function(options) {
-      this.el = options.el;
+      options.container.html(this.el);
       this.model = new models.WorkBook({uuid: options.id}); 
       this.listenTo(this.model, "change", this.render);
       this.model.fetch();

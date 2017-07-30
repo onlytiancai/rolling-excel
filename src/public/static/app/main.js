@@ -10,11 +10,16 @@ define(function (require) {
     },
 
     index: function() {
-      new views.ListView({el: $('.main')});
+      this.loadView(new views.ListView({container: $('.main')}));
     },
 
     detail: function(id) {
-      new views.DetailView({el: $('.main'), id: id});
+      this.loadView(new views.DetailView({container: $('.main'), id: id}));
+    },
+
+    loadView : function(view) {
+      this.view && (this.view.close ? this.view.close() : this.view.remove());
+      this.view = view;
     }
 
   });
