@@ -8,6 +8,7 @@
         <meta name="author" content="">
         <title>Rolling Excel</title>
         <link href="/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dashboard.css" rel="stylesheet">
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">

@@ -1,7 +1,12 @@
 define(function (require) {
-    var WorkBooks = require('./workbook');
-    var books = new WorkBooks();
+  var models = require('./models');
+  var views = require('./views');
+
+  var books = new models.WorkBooks();
+  var listView = new views.ListView({el: $('.main'), books: books});
+
     books.fetch({
+      reset: true,
       success: function(){
 
         books.once("add", function(newbook) {
@@ -23,4 +28,7 @@ define(function (require) {
       }, {wait: true});
     }  
   });
+
+  
 });
+
