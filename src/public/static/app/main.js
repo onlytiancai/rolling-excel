@@ -1,34 +1,26 @@
 define(function (require) {
-  var models = require('./models');
+  var Backbone = require('backbone');
   var views = require('./views');
 
-  var books = new models.WorkBooks();
-  var listView = new views.ListView({el: $('.main'), books: books});
+  var Workspace = Backbone.Router.extend({
 
-    books.fetch({
-      reset: true,
-      success: function(){
+    routes: {
+      "":                   "index",
+      "detail/:id":         "detail",
+    },
 
-        books.once("add", function(newbook) {
-          newbook.fetch();
+    index: function() {
+      new views.ListView({el: $('.main')});
+    },
 
-          newbook.save(
-            {'title': '6666'},
-            {
-            success: function() {
-              console.log('save ok');
-              newbook.destroy();  
-            }  
-          });
+    detail: function(id) {
+      new views.DetailView({el: $('.main'), id: id});
+    }
 
-        });
-
-      books.create({
-        title: 555
-      }, {wait: true});
-    }  
   });
 
-  
+  new Workspace();
+  Backbone.history.start();
+
 });
 

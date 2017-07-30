@@ -1,7 +1,22 @@
-<table>
+<h3>我的表格</h3>
+<table class="table table-striped">
+    <col width="60%" />
+    <col width="20%" />
+    <col width="20%" />
+    <thead>
+        <tr>
+            <td>标题</td>
+            <td>创建时间</td>
+            <td>最后修改时间</td>
+        </tr>
+    </thead>
+    <tbody>
     {{#.}}
     <tr>
-        <td>{{title}}</td>
+        <td><a href="#detail/{{uuid}}">{{title}}</a></td>
+        <td>{{created_time}}</td>
+        <td>{{changed_time}}</td>
     </tr>
     {{/.}}
+    </tbody>
 </table>

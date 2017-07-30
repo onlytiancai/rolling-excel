@@ -2,7 +2,8 @@ define(function (require) {
   var Backbone = require('backbone');
 
   var WorkBook = Backbone.Model.extend({
-    idAttribute: "uuid"  
+    idAttribute: "uuid",
+    urlRoot: '/workbooks/'
   });
 
   var WorkBooks = Backbone.Collection.extend({
