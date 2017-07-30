@@ -1,4 +1,6 @@
 define(function (require) {
+  require('xlsx.core.min'); // 全局XLSX可用， https://github.com/SheetJS/js-xlsx/blob/master/demos/requirejs/requirejs.js
+
   var Backbone = require('backbone');
   var views = require('./views');
 

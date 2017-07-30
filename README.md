@@ -20,3 +20,9 @@
 - https://github.com/benjamine/JsonDiffPatch
 - http://backbonejs.org/
 - http://requirejs.org/docs/api.html#jsfiles
+- https://stackoverflow.com/questions/4185814/fixed-table-cell-width 
+- https://github.com/SheetJS/js-xlsx
+- https://github.com/SheetJS/js-xlsx/blob/master/demos/requirejs/requirejs.js
+- https://github.com/guybedford/require-css
+
+

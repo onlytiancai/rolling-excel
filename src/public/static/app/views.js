@@ -2,8 +2,13 @@ define(function (require) {
 
   var Backbone = require('backbone');
   var Mustache = require('mustache');
+
   var models = require('./models');
+  var xlsutils = require('./xlsutils');
+  var hotutils = require('./hotutils');
+
   var listTpl = require("text!./views/list.html!strip");
+  var detailTpl = require("text!./views/detail.html!strip");
 
   var ListView = Backbone.View.extend({
 
@@ -30,7 +35,37 @@ define(function (require) {
     },
 
     render: function() {
-      this.$el.html(JSON.stringify(this.model.toJSON()));
+      this.$el.html(Mustache.render(detailTpl, this.model.toJSON()));
+      this.$('.main-table').html(JSON.stringify(this.model.toJSON()));
+    },
+
+    events: {
+      "change #file_upload":    "file_change",
+      "click button.upload":    "upload",
+      "click button.download":  "download",
+      "click button.save":      "save"
+    },
+
+    upload: function() {
+      this.$('#file_upload').click();
+    },
+
+    file_change: function(e) {
+      var that = this;
+      xlsutils.read_file(e.target.files[0], function(err, workbook) {
+        if (err) return that.trigger('error', err);
+        that.workbook = workbook;
+        that.hotdata = xlsutils.get_hotdata(workbook);
+        that.hot = hotutils.get_hot(that.$('.main-table')[0], that.hotdata)
+      });
+    },
+
+    download: function() {
+              
+    },
+
+    save: function() {
+          
     },
 
   });
